@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Compare Beauty Products</title>
+    <style>
+        table {border-collapse: collapse;}
+        table, th, td {border: 1px solid black;}
+    </style>
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+   
+  </head>
+  <body>
+    <h2>Choose the beauty products you want to compare!</h2>
+    <form id="input" method="post" action="plot">
+      <table id="MyTable">
+          <tr>
+              <th>Select</th>
+              <th>Name</th>
+              <th>Brand</th>
+              <th>Function</th>
+              <th>Category</th>
+          </tr>
+      </table>
+      <input type="submit" value="Submit">
+    </form>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script>
+        $(document).ready( function () {
+            var data = {{ data | safe }};
+            var table = document.getElementById("MyTable");
+            for (var i = 0; i < data.length; i++){
+                var tr = table.insertRow(-1);
+                var tabCell1 = tr.insertCell(-1);
+                tabCell1.innerHTML = `<input type="checkbox" name="products" value="${data[i]["Name"]}">`;
+                var arr = ["Name", "Brand", "Function", "Category"];
+                var x;
+                for (x of arr){
+                    var tabCell = tr.insertCell(-1);
+                    tabCell.innerHTML = data[i][x];
+                }
+            }
+            var forms = document.getElementById("input");
+            forms.innerHTML="";
+            forms.appendChild(table);
+            forms.innerHTML += '<input type="submit" value="Submit">';
+        });
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
+    
+    
+  </body>
+</html>
