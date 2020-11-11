@@ -11,15 +11,15 @@ app = Flask(__name__)
 
 @app.route('/')
 def root():
-    with open("../data/data.json") as f:
+    with open("data/data.json") as f:
         data = json.load(f)
     return render_template("index.html", data = data)
 
 @app.route('/plot', methods=['POST'])
 def plot():
-    df_ingredient = pd.read_csv("../data/ingredient_matrix.csv", index_col=0)
-    merged_tb = pd.read_csv("../data/merged_data_table.csv")
-    product_ingredients = dill.load(open("../data/product_ingre_dict.pkd", 'rb'))
+    df_ingredient = pd.read_csv("data/ingredient_matrix.csv", index_col=0)
+    merged_tb = pd.read_csv("data/merged_data_table.csv")
+    product_ingredients = dill.load(open("data/product_ingre_dict.pkd", 'rb'))
     selected_products = request.form.getlist('products')
     pairwise_matrix = pd.DataFrame(pairwise_distances(df_ingredient.to_numpy(), metric="cosine"), columns=df_ingredient.index, index=df_ingredient.index)
     if not selected_products:
