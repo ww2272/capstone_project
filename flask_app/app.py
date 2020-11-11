@@ -108,7 +108,7 @@ def plot():
         col = pairwise_matrix[selected_products[0]]
         sorted_col = col.sort_values()
         output = [[k, v] for k, v in sorted_col.items()]
-        print(output)
+        #print(output)
         return render_template("plot1.html", data = output)
 
     elif len(selected_products) == 2:
